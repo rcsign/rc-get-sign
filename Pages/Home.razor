@@ -5,10 +5,12 @@
 
 <NavLink class="nav-link" @onclick="LoginWithInstagram">Login</NavLink>
 
-<p></p>
+<p>@Redir</p>
+<p>@Code</p>
 
 @code {
     string Code = "No Code";
+    string Redir = "No redir";
 
     protected override async Task OnInitializedAsync()
     {
@@ -19,7 +21,8 @@
 
         if (!string.IsNullOrEmpty(redir))
         {
-            NavigationManager.NavigateTo($"/{redir}", false);
+            Redir = redir;
+            //NavigationManager.NavigateTo($"/{redir}", false);
         }
         if (!string.IsNullOrEmpty(code))
         {
