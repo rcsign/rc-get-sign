@@ -17,6 +17,8 @@ jobs:
         run: dotnet publish rcsign.github.io.csproj -c Release -o release --nologo
       - name: Change index.html root tag
         run: sed -i 's/<base href="\/" \/>/<base href="\/rcsign.github.io\/" \/>/g' release/wwwroot/index.html
+      - name: Add .nojekyll file
+        run: touch release/wwwroot/.nojekyll
       - name: Commit wwwroot to Github Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
