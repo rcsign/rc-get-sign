@@ -5,35 +5,24 @@
 
 <NavLink class="nav-link" @onclick="LoginWithInstagram">Login</NavLink>
 
-<p>@Redir</p>
-<p>@Code</p>
-
 @code {
-    string Code = "No Code";
-    string Redir = "No redir";
-
     protected override async Task OnInitializedAsync()
     {
         var uri = NavigationManager.ToAbsoluteUri(NavigationManager.Uri);
         var query = System.Web.HttpUtility.ParseQueryString(uri.Query);
         var redir = query["redir"];
-        var code = query["code"];
+        var code = query["?code"];
 
         if (!string.IsNullOrEmpty(redir))
         {
-            Redir = redir;
-            //NavigationManager.NavigateTo($"/{redir}", false);
-        }
-        if (!string.IsNullOrEmpty(code))
-        {
-            Code = code;
+            NavigationManager.NavigateTo($"/{redir}?code={code}", false);
         }
     }
 
     private void LoginWithInstagram()
     {
         var clientId = "440417048755047";
-        var redirectUri = "https://rcsign.github.io/auth";
+        var redirectUri = "https://rcsign.github.io/?redir=auth&";
         var authorizationUrl = $"https://api.instagram.com/oauth/authorize?client_id={clientId}&redirect_uri={redirectUri}&scope=user_profile,user_media&response_type=code";
 
         NavigationManager.NavigateTo(authorizationUrl, true);
