@@ -1,11 +1,17 @@
 ﻿@page "/"
+@inject NavigationManager NavigationManager
 
 <PageTitle>Home</PageTitle>
 
-<h1>Hello, world!</h1>
+<NavLink class="nav-link" @onclick="LoginWithInstagram">Login</NavLink>
 
-<div class="alert alert-warning" role="alert">
-    Before authentication will function correctly, you must configure your provider details in <code>Program.cs</code>
-</div>
+@code {
+    private void LoginWithInstagram()
+    {
+        var clientId = "440417048755047";
+        var redirectUri = "https://rcsign.github.io/auth";
+        var authorizationUrl = $"https://api.instagram.com/oauth/authorize?client_id={clientId}&redirect_uri={redirectUri}&scope=user_profile,user_media&response_type=code";
 
-Welcome to your new app.
+        NavigationManager.NavigateTo(authorizationUrl, true);
+    }
+}
