@@ -14,7 +14,7 @@ jobs:
       - name: Publish .NET Core Project
         run: dotnet publish rcsign.github.io.csproj -c Release -o release --nologo
       - name: Commit wwwroot to Github Pages
-        uses: JamesIves/github-pages-deploy-action@4.6.1
+        uses: JamesIves/github-pages-deploy-action@4
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages
