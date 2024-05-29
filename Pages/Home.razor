@@ -10,19 +10,18 @@
     {
         var uri = NavigationManager.ToAbsoluteUri(NavigationManager.Uri);
         var query = System.Web.HttpUtility.ParseQueryString(uri.Query);
-        var redir = query["redir"];
         var code = query["?code"];
 
-        if (!string.IsNullOrEmpty(redir))
+        if (!string.IsNullOrEmpty(code))
         {
-            NavigationManager.NavigateTo($"/{redir}?code={code}", false);
+            NavigationManager.NavigateTo($"/auth?code={code}", false);
         }
     }
 
     private void LoginWithInstagram()
     {
         var clientId = "440417048755047";
-        var redirectUri = "https://rcsign.github.io/?redir=auth&";
+        var redirectUri = "https://rcsign.github.io";
         var authorizationUrl = $"https://api.instagram.com/oauth/authorize?client_id={clientId}&redirect_uri={redirectUri}&scope=user_profile,user_media&response_type=code";
 
         NavigationManager.NavigateTo(authorizationUrl, true);
