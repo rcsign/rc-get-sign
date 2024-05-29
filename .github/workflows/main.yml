@@ -16,7 +16,7 @@ jobs:
       - name: Publish .NET Core Project
         run: dotnet publish rcsign.github.io.csproj -c Release -o release --nologo
       - name: Change index.html root tag
-        run: sed -i 's/<base href="\/" \/>/<base href="\/rcsign.github.io\/" \/>/g' release/wwwroot/index.html
+        run: sed -i 's/<base href="\/" \/>/<base href="\/" \/>/g' release/wwwroot/index.html
       - name: Add .nojekyll file
         run: touch release/wwwroot/.nojekyll
       - name: Commit wwwroot to Github Pages
