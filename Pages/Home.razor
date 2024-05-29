@@ -5,7 +5,28 @@
 
 <NavLink class="nav-link" @onclick="LoginWithInstagram">Login</NavLink>
 
+<p></p>
+
 @code {
+    string Code = "No Code";
+
+    protected override async Task OnInitializedAsync()
+    {
+        var uri = NavigationManager.ToAbsoluteUri(NavigationManager.Uri);
+        var query = System.Web.HttpUtility.ParseQueryString(uri.Query);
+        var redir = query["redir"];
+        var code = query["code"];
+
+        if (!string.IsNullOrEmpty(redir))
+        {
+            NavigationManager.NavigateTo($"/{redir}", false);
+        }
+        if (!string.IsNullOrEmpty(code))
+        {
+            Code = code;
+        }
+    }
+
     private void LoginWithInstagram()
     {
         var clientId = "440417048755047";
