@@ -15,6 +15,8 @@ jobs:
           dotnet-version: 8.0
       - name: Publish .NET Core Project
         run: dotnet publish rcsign.github.io.csproj -c Release -o release --nologo
+      - name: Change index.html root tag
+        run: sed -i 's/<base href="\/" \/>/<base href="\/rcsign.github.io\/" \/>/g' release/wwwroot/index.html
       - name: Commit wwwroot to Github Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
