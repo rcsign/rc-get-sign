@@ -15,14 +15,36 @@
         const code = urlParams.get("code");
         if (code !== null)
         {
-            console.log("i have code");
-            console.log(code);
-            
             const p = document.createElement("p");
             const node = document.createTextNode(code);
             p.appendChild(node);
             const element = document.getElementById("mainSec");
             element.appendChild(p);
+
+            const url = new URL("https://api.instagram.com/oauth/access_token");
+            url.search = new URLSearchParams({
+                client_id: "440417048755047",
+                client_secret: "6f3721317ededdbae6ff0437ae0e4892",
+                grant_type: "authorization_code",
+                redirect_uri: "https://rcsign.github.io",
+                code: code
+            }).toString();
+
+            fetch(url, {
+                    method: "POST",
+                    mode: "cors"
+                }
+            ).then(response => {
+                if (response.ok)
+                {
+                    console.log(response);
+                    const p1 = document.createElement("p");
+                    const node1 = document.createTextNode(response);
+                    p1.appendChild(node1);
+                    const element = document.getElementById("mainSec");
+                    element.appendChild(p1);
+                }
+            });
         }
     </script>
 </body>
