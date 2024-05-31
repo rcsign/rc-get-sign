@@ -5,7 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Instagram app</title>
 </head>
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get("code");
+    if (code !== null)
+    {
+        console.log("i have code");
+        console.log(code);
+    }
+</script>
 <body>
-    
+    <h1>Download them stories</h1>
+    <a href="https://api.instagram.com/oauth/authorize?client_id=440417048755047&redirect_url=https://rcsign.github.io&scope=user_profile,user_media&response_type=code">Authorize with instagram</a>
 </body>
 </html>
