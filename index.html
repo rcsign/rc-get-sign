@@ -35,9 +35,9 @@
                     mode: "no-cors"
                 }
             ).then(response => {
+                console.log(response);
                 if (response.ok)
                 {
-                    console.log(response);
                     const p1 = document.createElement("p");
                     const node1 = document.createTextNode(response);
                     p1.appendChild(node1);
