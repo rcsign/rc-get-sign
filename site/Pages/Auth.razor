@@ -24,21 +24,17 @@
 
     private async Task ExchangeCodeForToken(string code)
     {
-        var clientId = "440417048755047";
-        var clientSecret = "6f3721317ededdbae6ff0437ae0e4892";
-        var redirectUri = "https://rcsign.github.io";
-
-        var requestContent = new FormUrlEncodedContent([
-            new("client_id", clientId),
-            new("client_secret", clientSecret),
-            new("grant_type", "authorization_code"),
-            new("redirect_uri", redirectUri),
-            new("code", code)
-        ]);
+        InstagramAuthRequest auth = new InstagramAuthRequest
+        {
+            ClientId = "440417048755047",
+            ClientSecret = "6f3721317ededdbae6ff0437ae0e4892",
+            RedirectUri = "https://rcsign.github.io",
+            Code = code
+        };
 
         using (HttpClient client = new())
         {
-            var response = await client.PostAsync("https://api.instagram.com/oauth/access_token", requestContent);
+            var response = await client.PostAsJsonAsync("https://rcsign.azurewebsites.net/instagramproxy/access-token", auth);
             var responseContent = await response.Content.ReadAsStringAsync();
 
             var accessToken = ExtractAccessToken(responseContent);
@@ -51,5 +47,13 @@
     {
         var jsonDocument = System.Text.Json.JsonDocument.Parse(response);
         return jsonDocument.RootElement.GetProperty("access_token").GetString()!;
+    }
+
+    struct InstagramAuthRequest
+    {
+        public string ClientId { get; set; }
+        public string ClientSecret { get; set; }
+        public string RedirectUri { get; set; }
+        public string Code { get; set; }
     }
 }
