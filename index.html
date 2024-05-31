@@ -44,6 +44,11 @@
                     const element = document.getElementById("mainSec");
                     element.appendChild(p1);
                 }
+                if(!res.ok) {
+                    return response.text().then(text => { throw new Error(text) });
+                }
+            }).catch(err => {
+                console.log("error: ", err);
             });
         }
     </script>
